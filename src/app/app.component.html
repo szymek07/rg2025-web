@@ -59,30 +59,18 @@
     margin: auto;
   }
 
-  .small-text {
-    font-size: 12px;
-    vertical-align: middle;
+  .sstv-codes {
+    display: flex;
+    gap: 0.5rem;
+    margin: 1rem 0;
   }
-
-  .fix-col-size {
-    width: 60px;
-  }
-
-  .header-col {
-    background-color: #cdcdd3;
+  .code-input {
+    width: 80px;
     text-align: center;
-
   }
 
-  .date-col {
-    background-color: #cdcdd3;
-    text-align: center;
-    font-weight: bold;
-  }
-
-  .oth-col {
-    background-color: #ececf3;
-    text-align: center;
+  .btn-offset {
+    margin-top: 10px;
   }
 
   @keyframes spin {
@@ -110,15 +98,44 @@
       <hr />
     </div>
 
-    <h3>Wpisz swój znak aby pobrać dyplom</h3>
-
     <form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)">
-      <div class="content">
-        <label class="margin" for="call">
-          <b>Znak:</b>
-        </label>
-        <input class="form-control margin" id="call" name="call" [(ngModel)]="call" (ngModelChange)="resetSubmitted()" required/>
-        <button class="btn btn-primary"  type="submit" [disabled]="userForm.invalid">Submit</button>
+      <div class="">
+        <h4 class="margin">Wpisz kod z obrazów SSTV:</h4>
+        <div class="sstv-codes">
+          <input class="form-control code-input"
+                 name="code1"
+                 maxlength="4"
+                 placeholder="Kod 1"
+                 [(ngModel)]="code1" (ngModelChange)="resetSubmitted()"
+                 required />
+          <input class="form-control code-input"
+                 name="code2"
+                 maxlength="4"
+                 placeholder="Kod 2"
+                 [(ngModel)]="code2" (ngModelChange)="resetSubmitted()"
+                 required />
+          <input class="form-control code-input"
+                 name="code3"
+                 maxlength="4"
+                 placeholder="Kod 3"
+                 [(ngModel)]="code3" (ngModelChange)="resetSubmitted()"
+                 required />
+          <input class="form-control code-input"
+                 name="code4"
+                 maxlength="4"
+                 placeholder="Kod 4"
+                 [(ngModel)]="code4" (ngModelChange)="resetSubmitted()"
+                 required />
+        </div>
+
+        <div class="">
+          <h4 class="margin">Wpisz swój znak/imię i nazwisko aby pobrać dyplom:</h4>
+          <input class="form-control margin" id="call" name="call" [(ngModel)]="call" (ngModelChange)="resetSubmitted()" required/>
+        </div>
+        <div class="btn-offset">
+          <button class="btn btn-primary"  type="submit" [disabled]="userForm.invalid">Submit</button>
+        </div>
+
       </div>
     </form>
 
