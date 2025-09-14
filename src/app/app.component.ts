@@ -3,8 +3,6 @@ import { RouterOutlet } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
-import { ApiResponse } from './response.model';
-
 
 @Component({
   selector: 'app-root',
@@ -25,7 +23,7 @@ export class AppComponent implements OnInit, OnDestroy {
   code3: string = '';
   code4: string = '';
   submitted: boolean = false;
-  apiResponse: ApiResponse | undefined;
+  apiResponse: boolean | undefined;
 
   loadingImage: boolean = true;
 
@@ -44,7 +42,7 @@ export class AppComponent implements OnInit, OnDestroy {
   makeApiCall(code1: string, code2: string, code3: string, code4: string, callValue: string) {
     const url = `/api/validate-code?code1=${code1}&code2=${code2}&code3=${code3}&code4=${code4}`;
     this.loadingAward = true;
-    this.http.get<ApiResponse>(url).subscribe(
+    this.http.get<boolean>(url).subscribe(
       response => {
         this.apiResponse = response;
         this.loadingAward = false;
@@ -56,8 +54,6 @@ export class AppComponent implements OnInit, OnDestroy {
       }
     );
   }
-
-
 
   onImageLoad() {
     this.loadingImage = false;

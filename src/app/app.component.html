@@ -147,15 +147,15 @@
     </div>
 
     <div  *ngIf="apiResponse != undefined && submitted && !loadingAward">
-      <h3>Suma zdobytych punktów: {{ apiResponse.points }}</h3>
+      <h3>{{ apiResponse ? 'Wprowadzono poprawny kod.' : 'Wprowadzono błędny kod.' }}</h3>
     </div>
 
-    <div  *ngIf="apiResponse != undefined && submitted && !loadingAward && apiResponse.points >= 2">
-      <img [src]="'/api/rg2025-get-image?call=' + call" (load)="onImageLoad()" alt="Obrazek z endpointu" width="600">
+    <div  *ngIf="apiResponse != undefined && submitted && !loadingAward && apiResponse">
+      <img [src]="'/api/rg-get-image?call=' + call" (load)="onImageLoad()" alt="Obrazek z endpointu" width="600">
       <div *ngIf="loadingImage" class="spinner">
       </div>
       <br />
-      <a [href]="'/api/rg2025-get-image?call=' + call" target="blank" download="hf33wosp.jpg" class="btn btn-success mt-3">
+      <a [href]="'/api/rg-get-image?call=' + call" target="blank" download="rg2025.jpg" class="btn btn-success mt-3">
         Pobierz dyplom
       </a>
     </div>
