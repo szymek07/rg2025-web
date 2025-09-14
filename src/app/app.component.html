@@ -1,0 +1,159 @@
+<style>
+  main {
+    width: 100%;
+    min-height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    box-sizing: inherit;
+    position: relative;
+    background-color: #b6b4b4;
+  }
+
+  .header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+  }
+
+  .zhp-logo {
+    width: 100px;
+    height: auto;
+    display: block;
+    margin-right: 20px;
+  }
+
+  .content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 3rem;
+  }
+
+  .content form {
+    display: flex;
+    align-items: center;
+  }
+
+  .content form label {
+    /*margin-right: 10px;*/
+  }
+
+  .content form input {
+    /*margin-right: 10px;*/
+  }
+
+  .margin {
+    margin-right: 10px;
+  }
+
+  .spinner {
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+    margin: auto;
+  }
+
+  .small-text {
+    font-size: 12px;
+    vertical-align: middle;
+  }
+
+  .fix-col-size {
+    width: 60px;
+  }
+
+  .header-col {
+    background-color: #cdcdd3;
+    text-align: center;
+
+  }
+
+  .date-col {
+    background-color: #cdcdd3;
+    text-align: center;
+    font-weight: bold;
+  }
+
+  .oth-col {
+    background-color: #ececf3;
+    text-align: center;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+
+</style>
+
+<main class="main">
+
+  <div >
+
+    <div class="header">
+      <img src="https://sp6zhp.pl/wp-content/uploads/2023/12/logo-zhp.png" alt="Logo ZHP" class="zhp-logo">
+      <h3>Rajd Granica 2025</h3>
+    </div>
+
+    <div class="text-responsive">
+      <p>
+        Dziękujemy za udział w akcji z okazji Rajdu Granica zorganizowanej przez Harcerski Klub Łączności RadioAktywni! <br />
+      </p>
+
+      <hr />
+    </div>
+
+    <h3>Wpisz swój znak aby pobrać dyplom</h3>
+
+    <form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)">
+      <div class="content">
+        <label class="margin" for="call">
+          <b>Znak:</b>
+        </label>
+        <input class="form-control margin" id="call" name="call" [(ngModel)]="call" (ngModelChange)="resetSubmitted()" required/>
+        <button class="btn btn-primary"  type="submit" [disabled]="userForm.invalid">Submit</button>
+      </div>
+    </form>
+
+    <div *ngIf="loadingAward" class="spinner">
+    </div>
+
+    <div  *ngIf="apiResponse == undefined && submitted && !loadingAward">
+        <h3>Brak informacji o zdobytych punktach dla znaku: {{ call }}</h3>
+    </div>
+
+    <div  *ngIf="apiResponse != undefined && submitted && !loadingAward">
+      <h3>Suma zdobytych punktów: {{ apiResponse.points }}</h3>
+    </div>
+
+    <div  *ngIf="apiResponse != undefined && submitted && !loadingAward && apiResponse.points >= 2">
+      <img [src]="'/api/rg2025-get-image?call=' + call" (load)="onImageLoad()" alt="Obrazek z endpointu" width="600">
+      <div *ngIf="loadingImage" class="spinner">
+      </div>
+      <br />
+      <a [href]="'/api/rg2025-get-image?call=' + call" target="blank" download="hf33wosp.jpg" class="btn btn-success mt-3">
+        Pobierz dyplom
+      </a>
+    </div>
+
+    <div class="header"></div>
+
+    <hr/>
+
+    <div >
+      <span>Zapraszamy do odwiedzenia naszej strony klubowej: </span>
+      <a href="https://sp6zhp.pl/">sp6zhp.pl</a>
+    </div>
+
+  </div>
+
+</main>
+
+<router-outlet />
