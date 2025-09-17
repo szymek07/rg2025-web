@@ -104,25 +104,25 @@
         <div class="sstv-codes">
           <input class="form-control code-input"
                  name="code1"
-                 maxlength="4"
+                 maxlength="2"
                  placeholder="Kod 1"
                  [(ngModel)]="code1" (ngModelChange)="resetSubmitted()"
                  required />
           <input class="form-control code-input"
                  name="code2"
-                 maxlength="4"
+                 maxlength="2"
                  placeholder="Kod 2"
                  [(ngModel)]="code2" (ngModelChange)="resetSubmitted()"
                  required />
           <input class="form-control code-input"
                  name="code3"
-                 maxlength="4"
+                 maxlength="2"
                  placeholder="Kod 3"
                  [(ngModel)]="code3" (ngModelChange)="resetSubmitted()"
                  required />
           <input class="form-control code-input"
                  name="code4"
-                 maxlength="4"
+                 maxlength="2"
                  placeholder="Kod 4"
                  [(ngModel)]="code4" (ngModelChange)="resetSubmitted()"
                  required />
@@ -151,7 +151,7 @@
     </div>
 
     <div  *ngIf="apiResponse != undefined && submitted && !loadingAward && apiResponse">
-      <img [src]="'/api/rg-get-image?call=' + call" (load)="onImageLoad()" alt="Obrazek z endpointu" width="600">
+      <img [src]="'/api/rg-get-image-preview?call=' + call" (load)="onImageLoad()" alt="Obrazek z endpointu" width="600">
       <div *ngIf="loadingImage" class="spinner">
       </div>
       <br />
